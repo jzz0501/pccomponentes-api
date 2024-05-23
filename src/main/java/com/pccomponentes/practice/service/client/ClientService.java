@@ -18,6 +18,6 @@ public class ClientService implements iClientService{
     @Override
     public ClientDTO findClientByID(Long id_client) {
         Optional<Client> client = clientRepo.findById(id_client);
-        return client.map(new ClientMapper()::mapToClientDTO).orElse(null);
+        return client.map(ClientMapper::mapToClientDTO).orElse(null);
     }
 }
