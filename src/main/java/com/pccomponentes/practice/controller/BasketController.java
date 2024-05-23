@@ -23,4 +23,17 @@ public class BasketController {
         return ResponseEntity.ok(result);
     }
 
+    @PutMapping("/{id_basket}/{id_product}/{quantity}")
+    public ResponseEntity<Result<Boolean>> insertProductToBasket(@PathVariable("id_basket") Long id_basket,
+                                                                 @PathVariable("id_product") Long id_product,
+                                                                 @PathVariable("quantity") Integer quantity) {
+        Result<Boolean> result = new Result<>(1, "success", basketService.updateProductOfBasket(id_basket, id_product, quantity));
+        return ResponseEntity.ok(result);
+    }
+
+    @DeleteMapping("/{id_basketProduct}")
+    public ResponseEntity<Result<Boolean>> deleteProductOfBasket(@PathVariable("id_basketProduct") Long id_basketProduct) {
+        Result<Boolean> result = new Result<>(1, "success", basketService.deleteProductOfBasket(id_basketProduct));
+        return ResponseEntity.ok(result);
+    }
 }

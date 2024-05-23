@@ -13,4 +13,7 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
     @Query("FROM Product WHERE name LIKE %:productName%")
     Page<Product> matchByName(String productName, Pageable pageable);
 
+    @Query("FROM Product WHERE category.name LIKE :categoryName")
+    Page<Product> findByCategoryName(String categoryName, Pageable pageable);
+
 }

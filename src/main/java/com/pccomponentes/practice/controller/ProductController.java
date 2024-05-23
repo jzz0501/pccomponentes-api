@@ -2,6 +2,7 @@ package com.pccomponentes.practice.controller;
 
 import com.pccomponentes.practice.dto.ProductDTO;
 import com.pccomponentes.practice.dto.ProductDetailDTO;
+import com.pccomponentes.practice.entity.Product;
 import com.pccomponentes.practice.service.product.ProductService;
 import com.pccomponentes.practice.util.Pageable;
 import com.pccomponentes.practice.util.Result;
@@ -29,6 +30,13 @@ public class ProductController {
     @GetMapping("/detail/{product_name}")
     public ResponseEntity<Result<ProductDetailDTO>> getProductDetailByName(@PathVariable("product_name") String productName) {
         Result<ProductDetailDTO> productDTOResult = new Result<>(1,"success",productService.findProductDetailByName(productName));
+        return ResponseEntity.ok(productDTOResult);
+    }
+
+    @GetMapping("/category/{category_name}")
+    public ResponseEntity<Result<Pageable<ProductDTO>>> getProductByCategoryName(@PathVariable("category_name") String categoryName,
+                                                                       @RequestParam(value = "pageNO", required = false, defaultValue = "1") Integer pageNO) {
+        Result<Pageable<ProductDTO>> productDTOResult = new Result<>(1,"success",productService.findAllProductByCategoryName(categoryName, pageNO));
         return ResponseEntity.ok(productDTOResult);
     }
 

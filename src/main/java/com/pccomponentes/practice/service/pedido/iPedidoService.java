@@ -9,4 +9,6 @@ public interface iPedidoService {
 
     List<PedidoDTO> findAllPedidoOfClient(Long id_client);
 
+    Boolean addPedidoOfClient(Long id_client, Long id_basket);
+
 }

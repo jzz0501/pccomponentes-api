@@ -42,6 +42,20 @@ public class ProductService implements iProductService{
     }
 
     @Override
+    public Pageable<ProductDTO> findAllProductByCategoryName(String categoryName, Integer page) {
+        Page<Product> productPage = productRepo.findByCategoryName(categoryName, PageRequest.of(page-1, 10));
+        List<ProductDTO> productDTOList = new ProductMapper().mapProductListToProductDTOList(productPage.getContent());
+        Pageable<ProductDTO> productDTOPageable = new Pageable<>();
+        productDTOPageable.setCurrentPage(productPage.getPageable().getPageNumber() + 1);
+        productDTOPageable.setTotalPage(productPage.getTotalPages());
+        productDTOPageable.setTotalItem(productPage.getTotalElements());
+        productDTOPageable.setPrevPageURL("");
+        productDTOPageable.setNextPageURL("");
+        productDTOPageable.setItems(productDTOList);
+        return productDTOPageable;
+    }
+
+    @Override
     public List<ProductDTO> findBestSellerProductByCategory(String category, Integer quantity) {
         return new ProductMapper().mapProductSaleListToProductDTOList(productSaleRepo.findByCategoryOrderBySoldDesc(category, quantity));
     }

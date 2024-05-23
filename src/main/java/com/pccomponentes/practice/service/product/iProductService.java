@@ -10,6 +10,8 @@ public interface iProductService {
 
     Pageable<ProductDTO> matchAllProductByName(String productName, Integer page);
 
+    Pageable<ProductDTO> findAllProductByCategoryName(String categoryName, Integer page);
+
     List<ProductDTO> findBestSellerProductByCategory(String category, Integer quantity);
 
     ProductDetailDTO findProductDetailByName(String productName);

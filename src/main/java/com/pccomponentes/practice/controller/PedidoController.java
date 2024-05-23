@@ -24,4 +24,10 @@ public class PedidoController {
         return ResponseEntity.ok(result);
     }
 
+    @PostMapping("/{id_client}/{id_basket}")
+    public ResponseEntity<Result<Boolean>> addPedidoOfClient(@PathVariable("id_client") Long id_client, @PathVariable("id_basket") Long id_basket) {
+        Result<Boolean> result = new Result<>(1, "success", pedidoService.addPedidoOfClient(id_client, id_basket));
+        return ResponseEntity.ok(result);
+    }
+
 }
