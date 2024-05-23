@@ -2,6 +2,8 @@ package com.pccomponentes.practice.service.auth;
 
 import com.pccomponentes.practice.dto.ClientDTO;
 import com.pccomponentes.practice.entity.Client;
+import com.pccomponentes.practice.exception.APIException;
+import com.pccomponentes.practice.exception.APIRequestException;
 import com.pccomponentes.practice.mapper.ClientMapper;
 import com.pccomponentes.practice.repository.ClientRepo;
 import com.pccomponentes.practice.util.JWT;
@@ -22,7 +24,7 @@ public class AuthService implements iAuthService {
     @Override
     public String login(String email, String password) {
         Client client = clientRepo.findByEmailAndPassword(email, password);
-        if(client == null) return null;
+        if(client == null) throw new APIException(APIRequestException.LOGIN_FAILED);
         Map<String, Object> claims = new HashMap<>();
         claims.put("email", client.getEmail());
         claims.put("password", client.getPassword());
